@@ -1,3 +1,7 @@
+
+
+
+
 export const initialStore=()=>{
   return{
     message: null,
@@ -12,7 +16,9 @@ export const initialStore=()=>{
         title: "Do my homework",
         background: null,
       }
-    ]
+    ],
+    characters: [],
+    planets: [],
   }
 }
 
@@ -26,7 +32,25 @@ export default function storeReducer(store, action = {}) {
         ...store,
         todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
       };
+    case 'update_character':
+
+      return {
+        ...store,
+        characters: action.payload
+      };
+      case 'update_planet':
+
+      return {
+        ...store,
+        planet: action.playload
+        
+      };
+
+
+
+
+
     default:
-      throw Error('Unknown action.');
+      throw Error(`Acción desconocida: ${action.type}`);
   }    
 }
