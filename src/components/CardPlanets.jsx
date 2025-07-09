@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const CardPlanets = ({ name, id }) => {
+  const { dispatch } = useGlobalReducer();
   const [isFavorite, setIsFavorite] = useState(false);
-  const {store,dispatch} = useGlobalReducer
   
-  function addFavs () {
-    dispatch({type:'add_favs', payload:{name:name,id:id}})
-    console.log (addFavs)
-  }
+  const handleFavorite = () => {
+    const newFavoriteStatus = !isFavorite;
+    setIsFavorite(newFavoriteStatus);
+    
+  };
 
   return (
     <div className="card root d-flex horizontal-scroll-container" style={{  minWidth: '18rem', margin: '0 10px', flexShrink: 0 }}>
@@ -23,7 +25,8 @@ export const CardPlanets = ({ name, id }) => {
           <Link to={`/details/${id}`} className="btn btn-primary btn-sm">
             Detalles
           </Link>
-          <button onClick={() => setIsFavorite(!isFavorite)} className={`btn btn-sm ${isFavorite ? 'btn-danger' : 'btn-outline-danger'}`}>
+          <button onClick={handleFavorite} className={`btn btn-sm ${isFavorite ? 'btn-danger' : 'btn-outline-danger'}`}
+                  aria-label={isFavorite ? 'Quitar de favoritos' : 'Añadir a favoritos'} style={{minWidth:'2.5rem'}}>
             {isFavorite ? '❤️' : '♡'}
           </button>
         </div>

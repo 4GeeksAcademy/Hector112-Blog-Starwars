@@ -1,7 +1,4 @@
 
-
-
-
 export const initialStore=()=>{
   return{
     message: null,
@@ -41,7 +38,7 @@ export default function storeReducer(store, action = {}) {
     case 'update_planet':
       return {
         ...store,
-        planets: action.playload
+        planets: action.payload
         
       };
 

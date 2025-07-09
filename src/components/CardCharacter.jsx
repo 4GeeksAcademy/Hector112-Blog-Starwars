@@ -22,19 +22,16 @@ export const CardCharacter = ({ name, id }) => {
           <div className="card-body d-flex flex-column">
             <h5 className="card-title text-truncate">{name}</h5>
             <p className="card-text flex-grow-1">Personaje de Star Wars</p>
-
-                    <div className="d-flex justify-content-between mt-auto">
-
-                      <Link to={`/details/${id}`} className="btn btn-primary btn-sm">
-                        Detalles
-                      </Link>
-
-                      <button onClick={handleFavorite} className={`btn btn-sm ${isFavorite ? 'btn-danger' : 'btn-outline-danger'}`}
-                              aria-label={isFavorite ? 'Quitar de favoritos' : 'Añadir a favoritos'} style={{minWidth:'2.5rem'}}>
-                        {isFavorite ? '❤️' : '♡'}
-                      </button>
-
-                     </div>
+              <div className="d-flex justify-content-between mt-auto">
+                <Link to={`/details/${id}`} className="btn btn-primary btn-sm">
+                  Detalles
+                </Link>
+                
+                <button onClick={handleFavorite} className={`btn btn-sm ${isFavorite ? 'btn-danger' : 'btn-outline-danger'}`}
+                        aria-label={isFavorite ? 'Quitar de favoritos' : 'Añadir a favoritos'} style={{minWidth:'2.5rem'}}>
+                  {isFavorite ? '❤️' : '♡'}
+                </button>
+               </div>
           </div>
         </div>
       </div>
