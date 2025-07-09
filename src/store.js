@@ -24,31 +24,33 @@ export const initialStore=()=>{
 
 export default function storeReducer(store, action = {}) {
   switch(action.type){
+
     case 'add_task':
-
-      const { id,  color } = action.payload
-
-      return {
-        ...store,
-        todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
+    const { id,  color } = action.payload
+    return {
+      ...store,
+      todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
       };
-    case 'update_character':
 
+    case 'update_character':
       return {
         ...store,
         characters: action.payload
       };
-      case 'update_planet':
 
+    case 'update_planet':
       return {
         ...store,
-        planet: action.playload
+        planets: action.playload
         
       };
 
+    case 'add_favs':
+      return{
+        ...store,
+        favs: store.favs.concat(action.payload)
 
-
-
+      };
 
     default:
       throw Error(`Acción desconocida: ${action.type}`);

@@ -1,9 +1,8 @@
-import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import { CardCharacter } from "../components/CardCharacter.jsx";
-import { CardPlanets } from "../components/CardPlanets.jsx";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+import { CardCharacter } from "../components/CardCharacter";
+import { CardPlanets } from "../components/CardPlanets";
 import { useEffect } from "react";
-import { getCharacters, getPlanets } from "../services/starwarsServices.js";
-
+import { getCharacters, getPlanets } from "../services/starwarsServices";
 
 export const Home = () => {
   const { store, dispatch } = useGlobalReducer(); 
@@ -14,34 +13,43 @@ export const Home = () => {
         const characters = await getCharacters();
         const planets = await getPlanets();
 
-        dispatch({ type: "update_character", payload: characters });
-        dispatch({ type: "update_planet", payload: planets });
+        await dispatch({ type: "update_planet", payload: "planets" });
+        console.log(planets)
+        await dispatch({ type: "update_character", payload: characters });
+
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
   }, []);
-
+console.log(store)
   return (
     <div className="container text-center mt-5">
       <h1>Bienvenidos a mi blog de Star Wars</h1>
 
-      <div className="contPersonajes horizontal-scroll-container d-flex flex-wrap mt-4">
-        <h1 className="col-12 text-center"> Personajes</h1>
-        <div className="scrolling-wrapper" >
+      {/* Personajes */}
+      <div className="mt-4">
+        <h1 className="text-center">Personajes</h1>
+        <div className="d-flex overflow-x-auto py-3 " >
           {store.characters.map((item) => (
-            <CardCharacter name={item.name} id={item.uid} key={item.uid} />
+            <div key={item.uid} style={{ flex: '0 0 auto', width: '18rem', scrollSnapAlign: 'start'}}>
+              <CardCharacter name={item.name} id={item.uid} />
+            </div>
           ))}
         </div>
       </div>
 
-      <div className="contPlanetas d-flex flex-wrap mt-4">
-        <h1 className="col-12 text-center">Planetas</h1>
-        <div className="scrolling-wrapper">
-          {store.planets.map((item) => (
-            <CardPlanets name={item.name} id={item.uid} key={item.uid} />
-          ))}
+      {/*  Planetas */}
+      <div className="mt-4">
+        <h1 className="text-center">Planetas</h1>
+        <div className="d-flex overflow-x-auto py-3" >
+          {/* {store.planets.map((item) => (
+            <div key={item.uid} style={{ flex: '0 0 auto', width: '18rem', scrollSnapAlign: 'start' }}>
+              <CardPlanets name={item.name} id={item.uid} />
+            </div>
+          ))} */}
         </div>
       </div>
     </div>
