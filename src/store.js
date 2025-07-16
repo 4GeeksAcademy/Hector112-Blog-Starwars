@@ -1,21 +1,10 @@
 
 export const initialStore=()=>{
-  return{
+  return {
     message: null,
-    todos: [
-      {
-        id: 1,
-        title: "Make the bed",
-        background: null,
-      },
-      {
-        id: 2,
-        title: "Do my homework",
-        background: null,
-      }
-    ],
-    characters: [],
-    planets: [],
+    characters: (localStorage.getItem("favorites") != null) ? JSON.parse(localStorage.getItem("favorites")) : [],
+    planets: (localStorage.getItem("favorites") != null) ? JSON.parse(localStorage.getItem("favorites")) : [],
+    favs: (localStorage.getItem("favorites") != null) ? JSON.parse(localStorage.getItem("favorites")) : []
   }
 }
 
@@ -42,10 +31,10 @@ export default function storeReducer(store, action = {}) {
         
       };
 
-    case 'add_favs':
+    case 'get_favs':
       return{
         ...store,
-        favs: store.favs.concat(action.payload)
+        favs: action.payload
 
       };
 

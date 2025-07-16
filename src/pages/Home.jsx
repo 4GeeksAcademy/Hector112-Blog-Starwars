@@ -14,7 +14,6 @@ export const Home = () => {
         const planets = await getPlanets();
 
         await dispatch({ type: "update_planet", payload: planets });
-        console.log(planets)
         await dispatch({ type: "update_character", payload: characters });
 
         
@@ -24,7 +23,9 @@ export const Home = () => {
     };
     fetchData();
   }, []);
-console.log(store)
+
+
+  
   return (
     <div className="container text-center mt-5">
       <h1>Bienvenidos a mi blog de Star Wars</h1>
@@ -32,9 +33,9 @@ console.log(store)
       {/* Personajes */}
       <div className="mt-4">
         <h1 className="text-center">Personajes</h1>
-        <div className="d-flex overflow-x-auto py-3 " >
+        <div className="d-flex overflow-x-auto py-3 "  >
           {store.characters.map((item) => (
-            <div key={item.uid} style={{ flex: '0 0 auto', width: '18rem', scrollSnapAlign: 'start'}}>
+            <div key={item.uid} style={{ flex: '0 0 auto', width: '18rem', scrollSnapAlign: 'start', paddingRight:'10px'}}>
               <CardCharacter name={item.name} id={item.uid} />
             </div>
           ))}

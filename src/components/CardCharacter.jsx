@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import { func } from "prop-types";
 
 export const CardCharacter = ({ name, id }) => {
   const { dispatch } = useGlobalReducer();
@@ -11,6 +12,9 @@ export const CardCharacter = ({ name, id }) => {
     setIsFavorite(newFavoriteStatus);
     
   };
+
+  
+
 
   return (
     <div className="container aling-item-horizontal">  

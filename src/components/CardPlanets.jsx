@@ -14,7 +14,7 @@ export const CardPlanets = ({ name, id }) => {
 
   return (
     <div className="card root d-flex horizontal-scroll-container" style={{  minWidth: '18rem', margin: '0 10px', flexShrink: 0 }}>
-      <img src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+      <img src={`url la foto`}
         className="card-img-top" alt={name} style={{ height: '200px', objectFit: 'cover' }} />
       
       <div className="card-body d-flex flex-column">

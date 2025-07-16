@@ -1,12 +1,21 @@
+import { useEffect } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { useParams } from "react-router-dom";
+import {Link, useParams } from "react-router-dom";
+import { getCharactersDetails } from "../services/starwarsServices";
 
 export const Details = () => {
      
-    const { id } = useParams();
+    let { id } = useParams();
     const {store, dispatch} = useGlobalReducer();
-    const character = store.characters.find((item) => item.uid === id);
-    const planet = store.planets.find((item) => item.uid === id);
+    // const character = store.characters.find((item) => item.uid === id);
+    // const planet = store.planets.find((item) => item.uid === id);
+
+    useEffect(() => {
+      
+      getCharacterDetails(id)
+        .then((data) => dispatch({ type: "update_details", payload: data }));
+
+    }, []);
 
     return (
     <div className="container text-center mt-5">
