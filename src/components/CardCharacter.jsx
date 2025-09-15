@@ -10,7 +10,9 @@ const PeopleCard = ({ name, id, image }) => {
     const { store, dispatch } = useGlobalReducer()
     const [characterDetails, setCharacterDetails] = useState(null);
     const [imgUrl, setImgUrl] = useState(`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`);
-    const [isFavorite, setIsFavorite] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(
+        store.favs.some(fav => fav.id === id && fav.type === "character")
+    );
 
     useEffect(() => {
         getCharacterDetails(id).then(data => {

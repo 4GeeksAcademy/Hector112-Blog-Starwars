@@ -49,11 +49,16 @@ export async function getPlanetDetails(id) {
 export async function getCharacterDetails(id) {
     try {
         const response = await fetch(`https://www.swapi.tech/api/people/${id}/`);
-        const data = await response.json();
-        if (response.status === 200) {
-            return data.result;
+        if (!response.ok) {
+            if (response.status === 429) {
+                return { error: "Demasiadas peticiones a la API. Intenta más tarde." };
+            }
+            throw new Error("Error en la petición");
         }
+        const data = await response.json();
+        return data.result;
     } catch (error) {
         console.error("Error fetching character details:", error);
+        return { error: "No se pudo obtener la información del personaje." };
     }
 }

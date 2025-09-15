@@ -30,9 +30,9 @@ export const Home = () => {
       <div className="mt-4">
         <h1 className="text-center">Personajes</h1>
         <div className="d-flex overflow-x-auto py-3 ">
-          {store.characters.map((item) => (
+          {store.characters.map((character) => (
             <div
-              key={item.uid}
+              key={character.id || character.uid}
               style={{
                 flex: "0 0 auto",
                 width: "18rem",
@@ -41,9 +41,9 @@ export const Home = () => {
               }}
             >
               <PeopleCard
-                name={item.name}
-                id={item.uid}
-                image={`https://starwars-visualguide.com/assets/img/characters/${item.uid}.jpg`}
+                name={character.name}
+                id={character.id || character.uid}
+                image={`https://starwars-visualguide.com/assets/img/characters/${character.uid}.jpg`}
               />
             </div>
           ))}
@@ -54,18 +54,15 @@ export const Home = () => {
       <div className="mt-4">
         <h1 className="text-center">Planetas</h1>
         <div className="d-flex overflow-x-auto py-3">
-          {store.planets.map((item) => (
-            <div
-              key={item.uid}
-              style={{
-                flex: "0 0 auto",
-                width: "18rem",
-                scrollSnapAlign: "start",
-              }}
-            >
-              <CardPlanets name={item.name} id={item.uid} />
-            </div>
-          ))}
+          {store.planets
+            .filter((planet) => planet.id || planet.uid)
+            .map((planet) => (
+              <CardPlanets
+                key={planet.id || planet.uid}
+                name={planet.name}
+                id={planet.id || planet.uid}
+              />
+            ))}
         </div>
       </div>
     </div>

@@ -7,7 +7,9 @@ export const CardPlanets = ({ name, id }) => {
   const [planetDetails, setPlanetDetails] = useState(null);
   const [imgUrl, setImgUrl] = useState(`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`);
   const { store, dispatch } = useGlobalReducer();
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(
+    store.favs.some(fav => fav.id === id && fav.type === "planet")
+  );
 
   useEffect(() => {
     getPlanetDetails(id).then(data => {
@@ -26,7 +28,6 @@ export const CardPlanets = ({ name, id }) => {
     } else {
       dispatch({ type: "add_favs", payload: { name, id, type: "planet" } });
     }
-    // El estado isFavorite se actualizará automáticamente por el useEffect
   };
 
   return (

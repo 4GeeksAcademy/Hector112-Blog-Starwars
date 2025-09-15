@@ -4,23 +4,16 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { getPlanetDetails } from "../services/starwarsServices.js";
 
 export const DetailsPlanet = () => {
-
     let { id } = useParams()
-
     const { store, dispatch } = useGlobalReducer()
 
-    console.log(id);
-
     useEffect(() => {
-
         getPlanetDetails(id)
             .then((data) => dispatch({ type: "update_planetDetails", payload: data }))
-
-    }, [])
+    }, [id, dispatch])
 
     const planetDetailsContainer = store.planetDetails?.properties;
-    console.log(planetDetailsContainer);
-
+    const error = store.planetDetails?.error;
 
     return (
         <div className="container text-center mt-5">
@@ -37,11 +30,6 @@ export const DetailsPlanet = () => {
                         </div>
                         <div className="col-1"></div>
                     </div>
-
-                    <div className="row">
-                        
-                    </div>
-
 
                     <div className="container my-2">
                         <div className="row d-flex justify-content-between">
