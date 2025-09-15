@@ -1,38 +1,39 @@
 import { useEffect } from "react";
+import { useParams, NavLink } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import {Link, useParams } from "react-router-dom";
-import { getCharactersDetails } from "../services/starwarsServices";
+import { getCharacterDetails } from "../services/starwarsServices";
 
 export const Details = () => {
-     
-    let { id } = useParams();
-    const {store, dispatch} = useGlobalReducer();
-    // const character = store.characters.find((item) => item.uid === id);
-    // const planet = store.planets.find((item) => item.uid === id);
+    const { id } = useParams();
+    const { store, dispatch } = useGlobalReducer();
 
     useEffect(() => {
-      
-      getCharacterDetails(id)
-        .then((data) => dispatch({ type: "update_details", payload: data }));
+        getCharacterDetails(id)
+            .then(data => dispatch({ type: "update_characterDetails", payload: data }));
+    }, [id, dispatch]);
 
-    }, []);
+    // Asegúrate de que characterDetails existe antes de acceder a sus propiedades
+    const character = store.characterDetails?.properties;
 
     return (
-    <div className="container text-center mt-5">
-      <h1>Detalles</h1>
-      {character ? (
-        <div>
-          <h2>Personaje: {character.name}</h2>
-          <p>Detalles del personaje...</p>
+        <div className="container text-center mt-5">
+            {character ? (
+                <>
+                    <h1>{character.name}</h1>
+                    <p>Altura: {character.height}</p>
+                    <p>Peso: {character.mass}</p>
+                    <p>Color de pelo: {character.hair_color}</p>
+                    <p>Color de piel: {character.skin_color}</p>
+                    <p>Color de ojos: {character.eye_color}</p>
+                    <p>Año de nacimiento: {character.birth_year}</p>
+                    <p>Género: {character.gender}</p>
+                </>
+            ) : (
+                <p>Cargando...</p>
+            )}
+            <button className="btn btn-primary mt-3">
+                <NavLink to="/" className="card-link text-white">Volver al blog</NavLink>
+            </button>
         </div>
-      ) : planet ? (
-        <div>
-          <h2>Planeta: {planet.name}</h2>
-          <p>Detalles del planeta...</p>
-        </div>
-      ) : (
-        <p>No se encontraron detalles.</p>
-      )}
-    </div>
-  );
-}
+    );
+};

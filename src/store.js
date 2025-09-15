@@ -1,4 +1,3 @@
-
 export const initialStore=()=>{
   return {
     message: null,
@@ -37,6 +36,35 @@ export default function storeReducer(store, action = {}) {
         favs: action.payload
 
       };
+
+    case "update_characterDetails":
+        return {
+            ...store,
+            characterDetails: action.payload
+        };
+
+    case "update_planetDetails":
+        return {
+            ...store,
+            planetDetails: action.payload
+        };
+
+    case "add_favs":
+        const favsAdd = store.favs.some(fav => fav.id === action.payload.id)
+            ? store.favs
+            : [...store.favs, action.payload];
+        localStorage.setItem("favorites", JSON.stringify(favsAdd));
+        return {
+            ...store,
+            favs: favsAdd
+        };
+    case "remove_fav":
+        const favsRemove = store.favs.filter(fav => fav.id !== action.payload.id);
+        localStorage.setItem("favorites", JSON.stringify(favsRemove));
+        return {
+            ...store,
+            favs: favsRemove
+        };
 
     default:
       throw Error(`Acción desconocida: ${action.type}`);
